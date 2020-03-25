@@ -20,7 +20,7 @@ class LstmModel(nn.Module):
         self.fc = nn.Sequential(
             nn.Linear(in_features=hidden_dim, out_features=hidden_dim // 2),
             nn.ReLU(inplace=False),
-            nn.Linear(in_features=hidden_dim // 2, out_features=1),
+            nn.Linear(in_features=hidden_dim // 2, out_features=self.target_size),
         )
         self.sequence_length = sequence_length
 
@@ -30,27 +30,36 @@ class LstmModel(nn.Module):
         # Always give batch_size and device information when we create new tensor
         # initialize the hidden state and the cell state to zeros
         return (
-            torch.zeros(batch_size, self.hidden_dim).to(device=self.device),
-            torch.zeros(batch_size, self.hidden_dim).to(device=self.device),
+            torch.zeros(batch_size, self.hidden_dim, requires_grad=True).to(
+                device=self.device
+            ),
+            torch.zeros(batch_size, self.hidden_dim, requires_grad=True).to(
+                device=self.device
+            ),
         )
 
     def forward(self, sequence):
 
         batch_size = sequence.size(0)
         hidden, cell = self.init_hidden(batch_size=batch_size, device=self.device)
-
         for i in range(self.sequence_length):
             hidden, cell = self.lstm_cell(sequence[:, i], (hidden, cell))
 
-        outputs = torch.zeros(self.target_size, batch_size, 1).to(device=self.device)
-
         out = self.fc(hidden)
-        outputs[0] = out
+        out = torch.unsqueeze(out, 2)
+        # size : torch.Size([2048, 28, 1])
 
-        for target_idx in range(1, self.target_size):
-            hidden, cell = self.lstm_cell(out, (hidden, cell))
-            out = self.fc(hidden)
-            outputs[target_idx] = out
-        outputs = outputs.view(outputs.shape[1], outputs.shape[0], outputs.shape[2])
-        # Outputs have to be shapped like [batch_size,sequence_len,dim_of_xi]
-        return outputs
+        ##AUTOREGRESSIVE PART (DONT WORK BECAUSE NOT DIFFERENTIABLE)
+        # outputs = torch.zeros(self.target_size, batch_size, 1, requires_grad=True).to(
+        #     device=self.device
+        # )
+
+        # outputs[0] = out
+        # for target_idx in range(1, self.target_size):
+        #     hidden, cell = self.lstm_cell(out, (hidden, cell))
+        #     out = self.fc(hidden)
+        #     outputs[target_idx] = out
+        # outputs = outputs.view(outputs.shape[1], outputs.shape[0], outputs.shape[2])
+        # print(outputs.shape)
+        # Out have to be shapped like [batch_size,sequence_len,dim_of_xi]
+        return out

@@ -5,8 +5,9 @@ from torch.utils.data import Dataset
 
 SIZE = 1913
 
+
 class DatasetLSTM(Dataset):
-    def __init__(self, df,start_day, target_size):
+    def __init__(self, df, start_day, target_size):
 
         "Initialization"
         self.list_seq = df
@@ -32,4 +33,5 @@ class DatasetLSTM(Dataset):
         )
         target = torch.unsqueeze(target, 0).view(-1, 1)
         return {"data": data, "target": target}
+
     # data and target of size [sequence_lenght,1]
