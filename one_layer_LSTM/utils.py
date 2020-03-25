@@ -1,4 +1,3 @@
-
 import pandas as pd
 import numpy as np
 
@@ -7,7 +6,7 @@ from sklearn.preprocessing import MinMaxScaler
 import torch
 import torch.optim as optim
 from torch.utils import data
-from torch.utils.data import Dataset,DataLoader
+from torch.utils.data import Dataset, DataLoader
 
 import torch.nn as nn
 
@@ -16,12 +15,8 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 
 
-
-
 NB_DAYS = 1913
 DAYS = range(1, 1913 + 1)
-
-
 
 
 # def separate_and_scale(train,val_size,fit_size):
@@ -41,12 +36,12 @@ DAYS = range(1, 1913 + 1)
 #
 #     return fit_days,val_days
 #
-def ts_scale(train):
-    ts_columns = [f'd_{i}' for i in DAYS]
-    scaler = MinMaxScaler()
-    scaler = scaler.fit(train[ts_columns])
-    train[ts_columns] = scaler.transform(train[ts_columns])
-    return train
+# def ts_scale(train):
+#     ts_columns = [f'd_{i}' for i in DAYS]
+#     scaler = MinMaxScaler()
+#     scaler = scaler.fit(train[ts_columns])
+#     train[ts_columns] = scaler.transform(train[ts_columns])
+#     return train
 #
 #
 #
