@@ -6,19 +6,51 @@ import torch.nn as nn
 from tqdm import tqdm_notebook
 from tensorboard_logger import TensorboardLogger
 import numpy as np
+from typing import Dict, NoReturn
 
 
 def train_lstm(
-    model,
-    criterion,
-    optimizer,
-    train_loader,
-    val_loader,
-    device,
-    verbose,
-    n_epochs,
-    kwargs_writer=None,
-):
+    model: one_layer_LSTM_model.LstmModel,
+    criterion: torch.nn.modules.loss,
+    optimizer: torch.optim,
+    train_loader: torch.utils.data.dataloader.DataLoader,
+    val_loader: torch.utils.data.dataloader.DataLoader,
+    device: str,
+    verbose: bool,
+    n_epochs: int,
+    kwargs_writer: Dict[str, str] = None,
+) -> NoReturn:
+
+    """Short summary.
+
+    Parameters
+    ----------
+    model : one_layer_LSTM_model.LstmModel
+        Description of parameter `model`.
+    criterion : torch.nn.modules.loss
+        Description of parameter `criterion`.
+    optimizer : torch.optim
+        Description of parameter `optimizer`.
+    train_loader : torch.utils.data.dataloader.DataLoader
+        Description of parameter `train_loader`.
+    val_loader : torch.utils.data.dataloader.DataLoader
+        Description of parameter `val_loader`.
+    device : str
+        Description of parameter `device`.
+    verbose : bool
+        Description of parameter `verbose`.
+    n_epochs : int
+        Description of parameter `n_epochs`.
+    kwargs_writer : Dict[str, str]
+        Description of parameter `kwargs_writer`.
+
+    Returns
+    -------
+    NoReturn
+        Description of returned object.
+
+    """
+
     model = model.to(device)
     dict_loader = {"fit": train_loader, "val": val_loader}
 

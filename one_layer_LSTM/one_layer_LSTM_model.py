@@ -1,12 +1,63 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from typing import NoReturn
 
 
 class LstmModel(nn.Module):
+    """Short summary.
+
+    Parameters
+    ----------
+    hidden_dim : int
+        Description of parameter `hidden_dim`.
+    batch_size : int
+        Description of parameter `batch_size`.
+    target_size : int
+        Description of parameter `target_size`.
+    sequence_length : int
+        Description of parameter `sequence_length`.
+    n_layers : int
+        Description of parameter `n_layers`.
+    device : str
+        Description of parameter `device`.
+
+
+    """
+
     def __init__(
-        self, hidden_dim, batch_size, target_size, sequence_length, n_layers, device
-    ):
+        self,
+        hidden_dim: int,
+        batch_size: int,
+        target_size: int,
+        sequence_length: int,
+        n_layers: int,
+        device: str,
+    ) -> NoReturn:
+
+        """Short summary.
+
+        Parameters
+        ----------
+        hidden_dim : int
+            Description of parameter `hidden_dim`.
+        batch_size : int
+            Description of parameter `batch_size`.
+        target_size : int
+            Description of parameter `target_size`.
+        sequence_length : int
+            Description of parameter `sequence_length`.
+        n_layers : int
+            Description of parameter `n_layers`.
+        device : str
+            Description of parameter `device`.
+
+        Returns
+        -------
+        NoReturn
+            Description of returned object.
+
+        """
         super(LstmModel, self).__init__()
 
         self.hidden_dim = hidden_dim
@@ -26,7 +77,24 @@ class LstmModel(nn.Module):
 
         self.lstm_cell = nn.LSTMCell(input_size=1, hidden_size=hidden_dim, bias=True)
 
-    def init_hidden(self, device, batch_size):
+    def init_hidden(self, device: str, batch_size: int) -> torch.Tensor:
+
+        """Short summary.
+
+        Parameters
+        ----------
+        device : str
+            Description of parameter `device`.
+        batch_size : int
+            Description of parameter `batch_size`.
+
+        Returns
+        -------
+        torch.Tensor
+            Description of returned object.
+
+        """
+
         # Always give batch_size and device information when we create new tensor
         # initialize the hidden state and the cell state to zeros
         return (
@@ -38,7 +106,20 @@ class LstmModel(nn.Module):
             ),
         )
 
-    def forward(self, sequence):
+    def forward(self, sequence: torch.Tensor) -> torch.Tensor:
+        """Short summary.
+
+        Parameters
+        ----------
+        sequence : torch.Tensor
+            Description of parameter `sequence`.
+
+        Returns
+        -------
+        torch.Tensor
+            Description of returned object.
+
+        """
 
         batch_size = sequence.size(0)
         hidden, cell = self.init_hidden(batch_size=batch_size, device=self.device)

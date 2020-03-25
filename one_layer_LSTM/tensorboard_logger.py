@@ -1,19 +1,63 @@
 from torch.utils.tensorboard import SummaryWriter
+from typing import NoReturn
 
 
 class TensorboardLogger:
-    def __init__(self, kwargs_writer: dict):
+    """Short summary.
+
+    Parameters
+    ----------
+    kwargs_writer : Dict[str, str]
+        Description of parameter `kwargs_writer`.
+
+    """
+
+    def __init__(self, kwargs_writer: Dict[str, str]) -> NoReturn:
+        """Short summary.
+
+        Parameters
+        ----------
+        kwargs_writer : Dict[str, str]
+            Description of parameter `kwargs_writer`.
+
+        Returns
+        -------
+        NoReturn
+            Description of returned object.
+
+        """
 
         self.writer = SummaryWriter(**kwargs_writer)
 
     def add(
         self,
-        fit_loss=None,
-        val_loss=None,
-        model_for_gradient=None,
-        norm_weight=None,
-        step=None,
-    ):
+        fit_loss: float = None,
+        val_loss: float = None,
+        model_for_gradient: one_layer_LSTM_model.LstmModel = None,
+        norm_weight: float = None,
+        step: int = None,
+    ) -> NoReturn:
+        """Short summary.
+
+        Parameters
+        ----------
+        fit_loss : float
+            Description of parameter `fit_loss`.
+        val_loss : float
+            Description of parameter `val_loss`.
+        model_for_gradient : one_layer_LSTM_model.LstmModel
+            Description of parameter `model_for_gradient`.
+        norm_weight : float
+            Description of parameter `norm_weight`.
+        step : int
+            Description of parameter `step`.
+
+        Returns
+        -------
+        NoReturn
+            Description of returned object.
+
+        """
 
         if fit_loss is not None:
             self.writer.add_scalar("fiting loss", fit_loss, global_step=step)
