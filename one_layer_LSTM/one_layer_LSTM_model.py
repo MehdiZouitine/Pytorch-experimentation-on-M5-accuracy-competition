@@ -128,7 +128,7 @@ class LstmModel(nn.Module):
 
         out = self.fc(hidden)
         out = torch.unsqueeze(out, 2)
-        # size : torch.Size([2048, 28, 1])
+        # size : torch.Size([batch_size, 28, 1])
 
         ##AUTOREGRESSIVE PART (DONT WORK BECAUSE NOT DIFFERENTIABLE)
         # outputs = torch.zeros(self.target_size, batch_size, 1, requires_grad=True).to(

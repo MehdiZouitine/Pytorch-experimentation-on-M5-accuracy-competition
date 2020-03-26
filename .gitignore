@@ -126,3 +126,4 @@ dmypy.json
 #Ignore all the csv data (too heavy)
 
 *.csv
+*.hdf5
