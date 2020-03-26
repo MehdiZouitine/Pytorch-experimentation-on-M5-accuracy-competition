@@ -1,5 +1,6 @@
 from torch.utils.tensorboard import SummaryWriter
-from typing import NoReturn
+from typing import NoReturn, Dict
+from one_layer_LSTM_model import LstmModel
 
 
 class TensorboardLogger:
@@ -33,10 +34,11 @@ class TensorboardLogger:
         self,
         fit_loss: float = None,
         val_loss: float = None,
-        model_for_gradient: one_layer_LSTM_model.LstmModel = None,
+        model_for_gradient: LstmModel = None,
         norm_weight: float = None,
         step: int = None,
     ) -> NoReturn:
+
         """Short summary.
 
         Parameters
@@ -45,7 +47,7 @@ class TensorboardLogger:
             Description of parameter `fit_loss`.
         val_loss : float
             Description of parameter `val_loss`.
-        model_for_gradient : one_layer_LSTM_model.LstmModel
+        model_for_gradient : LstmModel
             Description of parameter `model_for_gradient`.
         norm_weight : float
             Description of parameter `norm_weight`.

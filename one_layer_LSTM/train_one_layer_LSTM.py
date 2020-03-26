@@ -7,10 +7,11 @@ from tqdm import tqdm_notebook
 from tensorboard_logger import TensorboardLogger
 import numpy as np
 from typing import Dict, NoReturn
+from one_layer_LSTM_model import LstmModel
 
 
 def train_lstm(
-    model: one_layer_LSTM_model.LstmModel,
+    model: LstmModel,
     criterion: torch.nn.modules.loss,
     optimizer: torch.optim,
     train_loader: torch.utils.data.dataloader.DataLoader,
@@ -25,7 +26,7 @@ def train_lstm(
 
     Parameters
     ----------
-    model : one_layer_LSTM_model.LstmModel
+    model : LstmModel
         Description of parameter `model`.
     criterion : torch.nn.modules.loss
         Description of parameter `criterion`.

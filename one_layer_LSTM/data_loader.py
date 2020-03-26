@@ -22,7 +22,7 @@ class DatasetLSTM(Dataset):
     """
 
     def __init__(
-        self, df: pandas.core.frame.DataFrame, start_day: int, target_size: int
+        self, df: pd.core.frame.DataFrame, start_day: int, target_size: int
     ) -> NoReturn:
 
         """Short summary.
