@@ -141,6 +141,6 @@ class LstmModel(nn.Module):
         #     out = self.fc(hidden)
         #     outputs[target_idx] = out
         # outputs = outputs.view(outputs.shape[1], outputs.shape[0], outputs.shape[2])
-        # print(outputs.shape)
+
         # Out have to be shapped like [batch_size,sequence_len,dim_of_xi]
         return out
