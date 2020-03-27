@@ -34,10 +34,11 @@ class DatasetAutoencoderLSTM(Dataset):
         -------
         NoReturn
             Description of returned object.
-
+df=train,subsamble_coef=1000
         """
         self.list_seq = df
         self.subsamble_coef = subsamble_coef
+        self.seq_lenght = df.shape[1]
 
     def __len__(self) -> int:
 
@@ -70,9 +71,9 @@ class DatasetAutoencoderLSTM(Dataset):
 
         # to subsample data  use numpy's slicing, simply (start:stop:step)
         data = torch.tensor(
-            self.list_seq.iloc[index].values[0 : -1 : self.subsamble_coef],
+            self.list_seq.iloc[index].values[0 : self.seq_lenght : self.subsamble_coef],
             dtype=torch.float32,
         )
-        data = torch.unsqueeze(data, 0)
+        data = torch.unsqueeze(data, 1)
         # Shape is [sequence_len,1]
         return data
